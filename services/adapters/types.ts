@@ -1,33 +1,33 @@
 export type ResponsePropsAPI = {
-  codigo: string;
-  nome: string;
+  codigo: string
+  nome: string
 }
 
 export type CarPropsAPI = {
-  TipoVeiculo: number;
-  Valor: string;
-  Marca: string;
-  Modelo: string;
-  AnoModelo: number;
-  Combustivel: string;
-  CodigoFipe: string;
-  MesReferencia: string;
-  SiglaCombustivel: string;
+  TipoVeiculo: number
+  Valor: string
+  Marca: string
+  Modelo: string
+  AnoModelo: number
+  Combustivel: string
+  CodigoFipe: string
+  MesReferencia: string
+  SiglaCombustivel: string
 }
 
 export type ResponseProps = {
-  code: string;
-  name: string;
+  code: string
+  name: string
 }
 
 export type CarProps = {
-  vehicleType: number;
-  price: string;
-  brand: string;
-  model: string;
+  vehicleType: number
+  price: string
+  brand: string
+  model: string
   year: number
-  fuelType: string;
-  code: string;
-  referenceMonth: string;
-  fuelInitial: string;
+  fuelType: string
+  code: string
+  referenceMonth: string
+  fuelInitial: string
 }

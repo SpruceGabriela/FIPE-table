@@ -1,3 +1,4 @@
+import useFipeContext from '@/hooks/useFipeContext'
 import {
   Autocomplete,
   Button,
@@ -9,6 +10,13 @@ import { Box, Stack } from '@mui/system'
 import { Title, Subtitle } from '../components/Typography/Typography.styles'
 
 export default function Home() {
+  const {
+    brandsResponse,
+    isBrandsLoading,
+    brandsHasError,
+    setBrandCode
+  } = useFipeContext()
+
   return (
     <>
       <Title variant="h1">Tabela Fipe</Title>
@@ -33,7 +41,11 @@ export default function Home() {
             <Stack spacing={2}>
               <Autocomplete
                 disablePortal
-                options={[]}
+                options={brandsResponse ?? []}
+                getOptionLabel={(option) => option?.name}
+								noOptionsText="Selecione um marca válida"
+                onChange={(_, value) => setBrandCode(value?.code ?? "")}
+								disabled={!brandsResponse || brandsHasError || isBrandsLoading}
                 renderInput={params => <TextField {...params} label="Marca" />}
               />
               <Autocomplete

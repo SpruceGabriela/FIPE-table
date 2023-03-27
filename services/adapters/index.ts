@@ -1,14 +1,16 @@
-import { ResponsePropsAPI, ResponseProps, CarPropsAPI, CarProps } from "./types";
+import { ResponsePropsAPI, ResponseProps, CarPropsAPI, CarProps } from './types'
 
-export const parseResponseProps = (response: ResponsePropsAPI | null):  ResponseProps | null =>
+export const parseResponseProps = (
+  response: ResponsePropsAPI | null
+): ResponseProps | null =>
   response
     ? {
         code: response.codigo,
         name: response.nome
       }
-    : null;
+    : null
 
-export const parseCarProps = (response: CarPropsAPI | null):  CarProps | null =>
+export const parseCarProps = (response: CarPropsAPI | null): CarProps | null =>
   response
     ? {
         vehicleType: response.TipoVeiculo,
@@ -21,4 +23,4 @@ export const parseCarProps = (response: CarPropsAPI | null):  CarProps | null =>
         referenceMonth: response.MesReferencia,
         fuelInitial: response.SiglaCombustivel
       }
-    : null;
+    : null
