@@ -6,7 +6,7 @@ export const roboto = Roboto({
   subsets: ['latin'],
   display: 'swap',
   fallback: ['Helvetica', 'Arial', 'sans-serif']
-});
+})
 
 const theme = createTheme({
   palette: {
@@ -17,11 +17,15 @@ const theme = createTheme({
     secondary: {
       main: '#28a38c',
       light: 'dcf5f2'
+    },
+    text: {
+      primary: '#424242',
+      secondary: '#9099ae'
     }
   },
   typography: {
     fontFamily: roboto.style.fontFamily
   }
-});
+})
 
 export default { theme }
