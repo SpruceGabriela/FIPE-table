@@ -11,11 +11,15 @@
     "format:fix": "prettier . --ignore-path .gitignore --write"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
     "@mui/material": "^5.11.14",
     "@mui/styled-engine-sc": "^5.11.11",
+    "@next/font": "^13.2.4",
     "@types/node": "18.15.10",
     "@types/react": "18.0.29",
     "@types/react-dom": "18.0.11",
+    "@types/styled-components": "^5.1.26",
     "eslint": "^8.36.0",
     "eslint-config-next": "13.2.4",
     "husky": "^8.0.3",
