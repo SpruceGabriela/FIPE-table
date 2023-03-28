@@ -2,7 +2,8 @@ import { CarProps, ResponseProps } from '@/services/adapters/types'
 import { getCar, getCarBrands, getCarModels, getYears } from '@/services/api'
 import { useQuery } from '@tanstack/react-query'
 import { useRouter } from "next/router"
-import { createContext, useState } from 'react'
+import { createContext, useEffect, useState } from 'react'
+import { toast } from "react-toastify"
 import { FipeContextProps, FipeContextProviderProps } from './types'
 
 export const FipeContext = createContext<FipeContextProps>(
@@ -18,7 +19,8 @@ export const FipeProvider = ({ children }: FipeContextProviderProps) => {
   const {
     data: brandsResponse,
     isLoading: isBrandsLoading,
-    isError: brandsHasError
+    isError: brandsHasError,
+    refetch: brandsRefetch
   } = useQuery<ResponseProps[] | null>(['brands'], async () => {
     const response = await getCarBrands()
     return response
@@ -27,7 +29,8 @@ export const FipeProvider = ({ children }: FipeContextProviderProps) => {
   const {
     data: modelsResponse,
     isLoading: isModelsLoading,
-    isError: modelsHasError
+    isError: modelsHasError,
+    refetch: modelsRefetch
   } = useQuery<ResponseProps[] | null>(
     ['models', brandCode],
     async () => {
@@ -40,7 +43,8 @@ export const FipeProvider = ({ children }: FipeContextProviderProps) => {
   const {
     data: yearsResponse,
     isLoading: isYearsLoading,
-    isError: yearsHasError
+    isError: yearsHasError,
+    refetch: yearsRefetch
   } = useQuery<ResponseProps[] | null>(
     ['years', modelCode],
     async () => {
@@ -52,8 +56,7 @@ export const FipeProvider = ({ children }: FipeContextProviderProps) => {
 
   const {
     data: carResponse,
-    // isLoading: isCarLoading,
-    // isError: carHasError
+    isError: carHasError
   } = useQuery<CarProps | null>(
     ['car', yearCode],
     async () => {
@@ -62,6 +65,27 @@ export const FipeProvider = ({ children }: FipeContextProviderProps) => {
     },
     { enabled: yearCode !== '' }
   )
+
+  useEffect(() => {
+    if(brandsHasError) {
+      toast.error('Erro ao carrregar marcas!', {
+        position: toast.POSITION.TOP_RIGHT
+      });
+      brandsRefetch()
+    }
+    if(modelsHasError) {
+      toast.error('Erro ao carrregar modelos!', {
+        position: toast.POSITION.TOP_RIGHT
+      });
+      modelsRefetch()
+    }
+    if(yearsHasError) {
+      toast.error('Erro ao carrregar anos!', {
+        position: toast.POSITION.TOP_RIGHT
+      });
+      yearsRefetch()
+    }
+  }, [carHasError, yearsHasError, brandsHasError])
 
   const resetState = () => {
 		setTimeout(() => {

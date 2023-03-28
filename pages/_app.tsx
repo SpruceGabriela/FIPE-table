@@ -7,6 +7,8 @@ import { FipeProvider } from '@/context/fipeContext'
 import type { AppProps } from 'next/app'
 import theme from '../styles/theme/default'
 import { useRouter } from "next/router"
+import 'react-toastify/dist/ReactToastify.css'
+import { ToastContainer } from "react-toastify"
 
 const client = new QueryClient({
   defaultOptions: {
@@ -27,6 +29,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <FipeProvider>
           <Layout>
             <Component {...pageProps} />
+            <ToastContainer />
           </Layout>
         </FipeProvider>
       </QueryClientProvider>
