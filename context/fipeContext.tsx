@@ -1,5 +1,5 @@
 import { ResponseProps } from '@/services/adapters/types'
-import { getCarBrands } from '@/services/api'
+import { getCarBrands, getCarModels } from '@/services/api'
 import { useQuery } from '@tanstack/react-query'
 import { createContext, useState } from 'react'
 import { FipeContextProps, FipeContextProviderProps } from './types'
@@ -10,6 +10,7 @@ export const FipeContext = createContext<FipeContextProps>(
 
 export const FipeProvider = ({ children }: FipeContextProviderProps) => {
   const [brandCode, setBrandCode] = useState('')
+  const [modelCode, setModelCode] = useState('')
 
   const {
     data: brandsResponse,
@@ -20,13 +21,30 @@ export const FipeProvider = ({ children }: FipeContextProviderProps) => {
     return response
   })
 
+  const {
+    data: modelsResponse,
+    isLoading: isModelsLoading,
+    isError: modelsHasError
+  } = useQuery<ResponseProps[] | null>(
+    ['models', brandCode],
+    async () => {
+      const response = await getCarModels(brandCode)
+      return response
+    },
+    { enabled: brandCode !== '', }
+  )
+
   return (
     <FipeContext.Provider
       value={{
         brandsResponse,
         isBrandsLoading,
         brandsHasError,
-        setBrandCode
+        modelsResponse,
+        isModelsLoading,
+        modelsHasError,
+        setBrandCode,
+        setModelCode
       }}
     >
       {children}

@@ -14,7 +14,11 @@ export default function Home() {
     brandsResponse,
     isBrandsLoading,
     brandsHasError,
-    setBrandCode
+    setBrandCode,
+    modelsResponse,
+    isModelsLoading,
+    modelsHasError,
+    setModelCode
   } = useFipeContext()
 
   return (
@@ -42,15 +46,19 @@ export default function Home() {
               <Autocomplete
                 disablePortal
                 options={brandsResponse ?? []}
-                getOptionLabel={(option) => option?.name}
-								noOptionsText="Selecione um marca válida"
-                onChange={(_, value) => setBrandCode(value?.code ?? "")}
-								disabled={!brandsResponse || brandsHasError || isBrandsLoading}
+                getOptionLabel={option => option?.name}
+                noOptionsText="Selecione uma marca válida"
+                onChange={(_, value) => setBrandCode(value?.code ?? '')}
+                disabled={!brandsResponse || brandsHasError || isBrandsLoading}
                 renderInput={params => <TextField {...params} label="Marca" />}
               />
               <Autocomplete
                 disablePortal
-                options={[]}
+                options={modelsResponse ?? []}
+                getOptionLabel={option => option?.name}
+                noOptionsText="Selecione um modelo válido"
+                onChange={(_, value) => setModelCode(value?.code ?? '')}
+                disabled={!modelsResponse || modelsHasError || isModelsLoading}
                 renderInput={params => <TextField {...params} label="Modelo" />}
               />
               <Autocomplete
