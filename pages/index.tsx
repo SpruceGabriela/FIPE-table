@@ -14,11 +14,15 @@ export default function Home() {
     brandsResponse,
     isBrandsLoading,
     brandsHasError,
-    setBrandCode,
     modelsResponse,
     isModelsLoading,
     modelsHasError,
-    setModelCode
+    yearsResponse,
+    isYearsLoading,
+    yearsHasError,
+    setBrandCode,
+    setModelCode,
+    setYearCode
   } = useFipeContext()
 
   return (
@@ -61,11 +65,17 @@ export default function Home() {
                 disabled={!modelsResponse || modelsHasError || isModelsLoading}
                 renderInput={params => <TextField {...params} label="Modelo" />}
               />
-              <Autocomplete
-                disablePortal
-                options={[]}
-                renderInput={params => <TextField {...params} label="Ano" />}
-              />
+              {yearsResponse ? (
+                <Autocomplete
+                  disablePortal
+                  options={yearsResponse}
+                  getOptionLabel={option => option?.name}
+                  noOptionsText="Selecione um ano válido"
+                  onChange={(_, value) => setYearCode(value?.code ?? '')}
+                  disabled={!yearsResponse || yearsHasError || isYearsLoading}
+                  renderInput={params => <TextField {...params} label="Ano" />}
+                />
+              ) : null}
               <Button
                 variant="contained"
                 type="button"

@@ -11,6 +11,7 @@ export const FipeContext = createContext<FipeContextProps>(
 export const FipeProvider = ({ children }: FipeContextProviderProps) => {
   const [brandCode, setBrandCode] = useState('')
   const [modelCode, setModelCode] = useState('')
+  const [yearCode, setYearCode] = useState('')
 
   const {
     data: brandsResponse,
@@ -31,7 +32,20 @@ export const FipeProvider = ({ children }: FipeContextProviderProps) => {
       const response = await getCarModels(brandCode)
       return response
     },
-    { enabled: brandCode !== '', }
+    { enabled: brandCode !== '' }
+  )
+
+  const {
+    data: yearsResponse,
+    isLoading: isYearsLoading,
+    isError: yearsHasError
+  } = useQuery<ResponseProps[] | null>(
+    ['years', modelCode],
+    async () => {
+      const response = await getCarModels(brandCode)
+      return response
+    },
+    { enabled: modelCode !== '' }
   )
 
   return (
@@ -43,8 +57,12 @@ export const FipeProvider = ({ children }: FipeContextProviderProps) => {
         modelsResponse,
         isModelsLoading,
         modelsHasError,
+        yearsResponse,
+        isYearsLoading,
+        yearsHasError,
         setBrandCode,
-        setModelCode
+        setModelCode,
+        setYearCode
       }}
     >
       {children}

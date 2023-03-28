@@ -13,22 +13,24 @@ export const getCarBrands = (): Promise<ResponseProps[] | null> =>
 export const getCarModels = (
   brandCode: string
 ): Promise<ResponseProps[] | null> =>
-  api
-    .get(`/carros/marcas/${brandCode}/modelos`)
-    .then(({ data }) => {
-      if(data) {
-        return data.modelos.map((item: ResponsePropsAPI) => parseResponseProps(item))
-      } return null;
+  api.get(`/carros/marcas/${brandCode}/modelos`).then(({ data }) => {
+    if (data) {
+      return data.modelos.map((item: ResponsePropsAPI) =>
+        parseResponseProps(item)
+      )
     }
-  )
+    return null
+  })
 
-const getYears = (
+export const getYears = (
   brandCode: string,
   model: string
-): Promise<ResponseProps | null> =>
+): Promise<ResponseProps[] | null> =>
   api
     .get(`/carros/marcas/${brandCode}/modelos/${model}/anos`)
-    .then(({ data }) => parseResponseProps(data))
+    .then(({ data }) =>
+      data.map((item: ResponsePropsAPI) => parseResponseProps(item))
+    )
 
 const getCarYear = (
   brandCode: string,

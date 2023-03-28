@@ -8,8 +8,12 @@ export type FipeContextProps = {
   modelsResponse: ResponseProps[] | undefined | null
   isModelsLoading: boolean
   modelsHasError: boolean
+  yearsResponse: ResponseProps[] | undefined | null
+  isYearsLoading: boolean
+  yearsHasError: boolean
   setBrandCode: Dispatch<SetStateAction<string>>
   setModelCode: Dispatch<SetStateAction<string>>
+  setYearCode: Dispatch<SetStateAction<string>>
 }
 
 export type FipeContextProviderProps = {
