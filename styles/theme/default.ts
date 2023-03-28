@@ -8,24 +8,35 @@ export const roboto = Roboto({
   fallback: ['Helvetica', 'Arial', 'sans-serif']
 })
 
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: '#5d19bf',
-      light: 'f9f6fc'
-    },
-    secondary: {
-      main: '#28a38c',
-      light: 'dcf5f2'
-    },
-    text: {
-      primary: '#424242',
-      secondary: '#9099ae'
-    }
-  },
-  typography: {
-    fontFamily: roboto.style.fontFamily
-  }
-})
+const indexTheme = createTheme({
+	palette: {
+		primary: {
+			main: "#5d19bf",
+		},
+		secondary: {
+			main: "#28a38c",
+		},
+		background: {
+			default: "#f9f6fc",
+		},
+	},
+	typography: {
+		fontFamily: roboto.style.fontFamily,
+	},
+});
 
-export default { theme }
+const resultTheme = createTheme({
+	palette: {
+		secondary: {
+			main: "#28a38c",
+		},
+		background: {
+			default: "#dcf5f2",
+		},
+	},
+	typography: {
+		fontFamily: roboto.style.fontFamily,
+	},
+});
+
+export default { indexTheme, resultTheme }

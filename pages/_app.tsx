@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { FipeProvider } from '@/context/fipeContext'
 import type { AppProps } from 'next/app'
 import theme from '../styles/theme/default'
+import { useRouter } from "next/router"
 
 const client = new QueryClient({
   defaultOptions: {
@@ -17,8 +18,11 @@ const client = new QueryClient({
 })
 
 export default function App({ Component, pageProps }: AppProps) {
+  const { pathname } = useRouter();
+	const isIndex = pathname === "/" ? theme.indexTheme : theme.resultTheme;
+
   return (
-    <ThemeProvider theme={theme.theme}>
+    <ThemeProvider theme={isIndex}>
       <QueryClientProvider client={client}>
         <FipeProvider>
           <Layout>
