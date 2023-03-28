@@ -32,7 +32,7 @@ export const getYears = (
       data.map((item: ResponsePropsAPI) => parseResponseProps(item))
     )
 
-const getCarYear = (
+export const getCar = (
   brandCode: string,
   model: string,
   year: string

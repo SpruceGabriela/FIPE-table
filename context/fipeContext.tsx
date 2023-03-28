@@ -1,6 +1,7 @@
-import { ResponseProps } from '@/services/adapters/types'
-import { getCarBrands, getCarModels } from '@/services/api'
+import { CarProps, ResponseProps } from '@/services/adapters/types'
+import { getCar, getCarBrands, getCarModels, getYears } from '@/services/api'
 import { useQuery } from '@tanstack/react-query'
+import { useRouter } from "next/router"
 import { createContext, useState } from 'react'
 import { FipeContextProps, FipeContextProviderProps } from './types'
 
@@ -9,6 +10,7 @@ export const FipeContext = createContext<FipeContextProps>(
 )
 
 export const FipeProvider = ({ children }: FipeContextProviderProps) => {
+  const router = useRouter();
   const [brandCode, setBrandCode] = useState('')
   const [modelCode, setModelCode] = useState('')
   const [yearCode, setYearCode] = useState('')
@@ -42,11 +44,31 @@ export const FipeProvider = ({ children }: FipeContextProviderProps) => {
   } = useQuery<ResponseProps[] | null>(
     ['years', modelCode],
     async () => {
-      const response = await getCarModels(brandCode)
+      const response = await getYears(brandCode, modelCode)
       return response
     },
     { enabled: modelCode !== '' }
   )
+
+  const {
+    data: carResponse,
+    // isLoading: isCarLoading,
+    // isError: carHasError
+  } = useQuery<CarProps | null>(
+    ['car', yearCode],
+    async () => {
+      const response = await getCar(brandCode, modelCode, yearCode)
+      return response
+    },
+    { enabled: yearCode !== '' }
+  )
+
+  const handleSubmit = () => {
+		router.push({
+      pathname: '/result',
+      query: { data: JSON.stringify(carResponse) }
+    }, '/result');
+	};
 
   return (
     <FipeContext.Provider
@@ -62,7 +84,8 @@ export const FipeProvider = ({ children }: FipeContextProviderProps) => {
         yearsHasError,
         setBrandCode,
         setModelCode,
-        setYearCode
+        setYearCode,
+        handleSubmit
       }}
     >
       {children}

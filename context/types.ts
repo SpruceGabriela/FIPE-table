@@ -14,6 +14,7 @@ export type FipeContextProps = {
   setBrandCode: Dispatch<SetStateAction<string>>
   setModelCode: Dispatch<SetStateAction<string>>
   setYearCode: Dispatch<SetStateAction<string>>
+  handleSubmit: () => void
 }
 
 export type FipeContextProviderProps = {

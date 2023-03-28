@@ -22,7 +22,8 @@ export default function Home() {
     yearsHasError,
     setBrandCode,
     setModelCode,
-    setYearCode
+    setYearCode,
+    handleSubmit
   } = useFipeContext()
 
   return (
@@ -86,6 +87,8 @@ export default function Home() {
                   alignSelf: 'center',
                   textTransform: 'capitalize'
                 }}
+                onClick={handleSubmit}
+                disabled={!brandsResponse || !modelsResponse || !yearsResponse}
               >
                 Consultar preço
               </Button>
