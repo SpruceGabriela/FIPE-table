@@ -63,11 +63,20 @@ export const FipeProvider = ({ children }: FipeContextProviderProps) => {
     { enabled: yearCode !== '' }
   )
 
+  const resetState = () => {
+		setTimeout(() => {
+      setBrandCode("");
+      setModelCode("");
+      setYearCode("");
+    }, 2000)
+	};
+
   const handleSubmit = () => {
 		router.push({
       pathname: '/result',
       query: { data: JSON.stringify(carResponse) }
     }, '/result');
+    resetState();
 	};
 
   return (
